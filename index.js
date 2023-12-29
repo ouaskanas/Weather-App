@@ -21,11 +21,16 @@ app.get('/weather', function (req, res) {
         const cityName = data.name;
         const temperature = (data.main.temp - 273.15).toFixed(2);
         const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-
+        const coord ={
+            longiture : data.coord.lon,
+            laptitude : data.coord.lat
+        }
+        const coordonées = " "+coord.laptitude+", "+coord.longiture; 
         res.json({
             cityName: cityName,
             temperature: temperature,
-            sunsetTime: sunsetTime
+            sunsetTime: sunsetTime, 
+            coordonées: coordonées
         });
     })
         .catch(error => {
@@ -33,8 +38,6 @@ app.get('/weather', function (req, res) {
             res.status(500).json({ error: 'Erreur de données' });
         });
 });
-
-
 
 const port = 3000;
 app.listen(port, function () {
