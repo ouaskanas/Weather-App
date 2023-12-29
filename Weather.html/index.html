@@ -40,6 +40,7 @@
         <h1 id="cityName">Today's Weather</h1>
         <h3 id="temperature"></h3>
         <h3 id="sunsetTime"></h3>
+        <h3 id="coord"></h3>
     </header>
     </div>
     <script>
@@ -51,6 +52,7 @@
                     document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
                     document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
                     document.getElementById('sunsetTime').textContent = `Levet de soleil: ${data.sunsetTime}`;
+                    document.getElementById('coord').textContent = `Coordonés : ${data.coordonées}`;
                 })
                 .catch(error => console.error(error));
         });
