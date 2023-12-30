@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <style>
+        .input {
+            margin-top: 7%;
+            font-family: Arial, sans-serif; 
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 20px; 
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .input:focus {
+            border-color: #7d8580; 
+        }
+        .cool-send-button {
+            margin-top: 1%;
+            padding: 10px 20px;
+            border: 2px solid #3498db;
+            border-radius: 20px; 
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .cool-send-button:hover {
+            background-color: #2980b9; 
+        }
+        div {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            padding-left: 20px;
+        }
+        header {
+            background: #f4f4f4;
+            margin-top: 2%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h3 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+
+    <style id="dynamic-style"></style>
+</head>
+<body>
+
+<div class="header">
+    <input type="text" class="input" placeholder="Ville">
+    <button class="cool-send-button">Send</button>
+    <header>
+        <h1 id="cityName">Today's Weather</h1>
+        <h3 id="temperature"></h3>
+        <h3 id="sunsetTime"></h3>
+    </header>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/weather')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
+                document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
+                document.getElementById('sunsetTime').textContent = `Coucher de soleil: ${data.sunsetTime}`;
+                document.getElementById('dynamic-style').textContent = `
+                    body {
+                        background-image: url('${data.image}');
+                        background-size: cover;
+                    }
+                `;
+            })
+            .catch(error => console.error(error));
+    });
+</script>
+<script src="index.js"></script>
+</body>
+</html>
