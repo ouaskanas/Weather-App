@@ -5,58 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
     <style>
-    div {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 100vh;
-    padding-left: 20px;
-    background-color:#e4e4e4;
-    }
-    header{
-    background: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-    color: #333;
-    text-align: center;
-    padding: 20px;
-    }
+        /* Supprimez la définition de background-image ici */
+        /* body{
+            background-image: url('${firstPhotoUrl}');
+            background-size: cover;
+        } */
+        /* body:before {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);} */
+        div {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            padding-left: 20px;
+        }
+        header {
+            background: #f4f4f4;
+            margin-top: 10%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
 
-    h3 {
-    color: #333;
-    text-align: center;
-    padding: 20px;
-    }   
+        h3 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
     </style>
+
+    <!-- Ajoutez cette balise style pour le style dynamique du corps -->
+    <style id="dynamic-style"></style>
 </head>
 <body>
-    <div class="header">
-        <header>
+
+<div class="header">
+    <header>
         <h1 id="cityName">Today's Weather</h1>
         <h3 id="temperature"></h3>
         <h3 id="sunsetTime"></h3>
-        <h3 id="coord"></h3>
+        <!-- <h3 id="image"></h3> -->
     </header>
-    </div>
-    <script>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/weather')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
+                document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
+                document.getElementById('sunsetTime').textContent = `Levet de soleil: ${data.sunsetTime}`;
+                // document.getElementById('image').textContent = `Image : ${data.image}`;
 
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('/weather')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
-                    document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
-                    document.getElementById('sunsetTime').textContent = `Levet de soleil: ${data.sunsetTime}`;
-                    document.getElementById('coord').textContent = `Coordonés : ${data.coordonées}`;
-                })
-                .catch(error => console.error(error));
-        });
-        </script>
-    <script src="index.js"></script>
+                // Ajoutez le style dynamique pour le background-image ici
+                document.getElementById('dynamic-style').textContent = `
+                    body {
+                        background-image: url('${data.image}');
+                        background-size: cover;
+                    }
+                `;
+            })
+            .catch(error => console.error(error));
+    });
+</script>
+<script src="index.js"></script>
 </body>
 </html>
