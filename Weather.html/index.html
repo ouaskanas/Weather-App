@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
     <style>
-        /* Supprimez la définition de background-image ici */
-        /* body{
-            background-image: url('${firstPhotoUrl}');
-            background-size: cover;
-        } */
-        /* body:before {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);} */
         .input {
             margin-top: 7%;
             font-family: Arial, sans-serif; 
@@ -86,7 +75,6 @@
         <h1 id="cityName">Today's Weather</h1>
         <h3 id="temperature"></h3>
         <h3 id="sunsetTime"></h3>
-        <!-- <h3 id="image"></h3> -->
     </header>
 </div>
 <script>
@@ -97,9 +85,6 @@
                 document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
                 document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
                 document.getElementById('sunsetTime').textContent = `Coucher de soleil: ${data.sunsetTime}`;
-                // document.getElementById('image').textContent = `Image : ${data.image}`;
-
-                // Ajoutez le style dynamique pour le background-image ici
                 document.getElementById('dynamic-style').textContent = `
                     body {
                         background-image: url('${data.image}');
