@@ -37,6 +37,7 @@ app.get('/weather', function (req, res) {
         const cityName = weatherData.name;
         const temperature = (weatherData.main.temp - 273.15).toFixed(2);
         const sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString();
+        const suriseTime = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString(); 
 
         const unsplashData = unsplashResponse.data;
         const firstPhotoUrl = unsplashData.urls?.regular || unsplashData.urls?.full;
@@ -53,6 +54,7 @@ app.get('/weather', function (req, res) {
             temperature: temperature,
             sunsetTime: sunsetTime,
             coordinates: coordinates,
+            suriseTime: suriseTime,
             image: firstPhotoUrl
         });
     })).catch(error => {

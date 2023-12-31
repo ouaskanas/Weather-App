@@ -74,6 +74,7 @@
         <h1 id="cityName">Today's Weather</h1>
         <h3 id="temperature"></h3>
         <h3 id="sunsetTime"></h3>
+        <h3 id="suriseTime"></h3>
     </header>
 </div>
 <script>
@@ -98,6 +99,7 @@
                             document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
                             document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
                             document.getElementById('sunsetTime').textContent = `Coucher de soleil: ${data.sunsetTime}`;
+                            document.getElementById('suriseTime').textContent = `Lever de soleil: ${data.suriseTime}`;
                             document.getElementById('dynamic-style').textContent = `
                                 body {
                                     background-image: url('${data.image}');
