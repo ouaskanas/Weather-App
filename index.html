@@ -63,14 +63,13 @@
             padding: 20px;
         }
     </style>
-
     <style id="dynamic-style"></style>
 </head>
 <body>
 
 <div class="header">
-    <input type="text" class="input" placeholder="Ville">
-    <button class="cool-send-button">Send</button>
+    <input type="text" id="cityInput" class="input" placeholder="Ville">
+    <button id="sendButton" class="cool-send-button">Send</button>
     <header>
         <h1 id="cityName">Today's Weather</h1>
         <h3 id="temperature"></h3>
@@ -79,22 +78,46 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        fetch('/weather')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
-                document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
-                document.getElementById('sunsetTime').textContent = `Coucher de soleil: ${data.sunsetTime}`;
-                document.getElementById('dynamic-style').textContent = `
-                    body {
-                        background-image: url('${data.image}');
-                        background-size: cover;
-                    }
-                `;
-            })
-            .catch(error => console.error(error));
+        const sendButton = document.getElementById('sendButton');
+
+        if (sendButton) {
+            sendButton.addEventListener('click', function () {
+                const cityInput = document.getElementById('cityInput');
+
+                if (cityInput) {
+                    const city = cityInput.value;
+
+                    fetch(`/weather?address=${city}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            document.getElementById('cityName').textContent = `Ville: ${data.cityName}`;
+                            document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
+                            document.getElementById('sunsetTime').textContent = `Coucher de soleil: ${data.sunsetTime}`;
+                            document.getElementById('dynamic-style').textContent = `
+                                body {
+                                    background-image: url('${data.image}');
+                                    background-size: cover;
+                                }
+                            `;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            window.location.href = '/error'; // Redirect to error page
+                        });
+                } else {
+                    console.error("City input element not found");
+                }
+            });
+        } else {
+            console.error("Send button not found");
+        }
     });
 </script>
-<script src="index.js"></script>
+
 </body>
 </html>
