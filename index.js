@@ -9,10 +9,6 @@ const API_IMG = process.env.IMG_KEY;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname,'index.html'));
-});
-
 app.get('/error', function(req, res) {
     res.sendFile(path.join(__dirname, 'error.html'));
 });
@@ -63,5 +59,5 @@ app.get('/weather', function (req, res) {
 
 const port = 3000;
 app.listen(port, function () {
-    console.log("Le port utilisé est : " + port);
+    console.log("its running on http://localhost:"+port);
 });
